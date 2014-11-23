@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <title>Twitter App (c) Gabriel </title>
+  <link href="/css/style.css" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> <!-- jQuery -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.js"></script> <!-- angular.js -->
+  <script src="//cdn.socket.io/socket.io-1.2.0.js"></script> <!-- socket.io -->
+  <script type="text/javascript" src="/js/controllers.js"></script> <!-- controllers -->
+</head>
+<body ng-app="twitterApp">
+<div class="wrapper">
+
+	<header class="header">
+		<h1>twitter-app</h1>
+
+		app that uses the Twitter streaming API to grab the most popular recent tweets about the Champions League.	
+	</header>
+
+	<div class="middle" ng-controller="mainController">
+		<div class="container">
+			<main class="content">
+				<h2> {{ greeting }} </h2>
+				<h4> latest tweets : {{ date }} </h4>
+				count : {{ count }}
+			    <div ng-repeat="tweet in tweets | orderBy:predicate:desc">
+		    	</br>
+		    		<div id="tweet">
+		    			<b><label>  {{ tweet.user.name }}:  </label></b>
+				    	<blockquote> {{ tweet.text }} </blockquote>
+				        </br>
+				    	<label> rt: </label> <b><label> {{ tweet.retweet_count }} </label></b> 
+				    	<label> fav: </label> <b><label> {{ tweet.favorite_count }} </label></b> 
+
+			    	</div>
+	   			 </div>
+			</main>
+		</div>
+
+		<aside class="left-sidebar">
+		</aside>
+
+		<aside class="right-sidebar">
+		</aside>
+
+	</div>
+
+</div>
+<footer class="footer">
+	<center><h3> twitter app (c) <a href="http://no.linkedin.com/pub/gabriel-andrei/58/a3/b02/" target="_blank"> Gabriel Andrei </a> </h3></center>
+</footer>
+</body>
+</html>
