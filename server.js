@@ -57,14 +57,14 @@
         res.sendFile(__dirname + '/app/index.html');
     });
 
-    //Create web sockets connection.
+    // create connection
     io.sockets.on('connection', function (socket) 
     {
       socket.on("get tweets", function() 
       {
         console.log((new Date()).toUTCString() + ' s : send tweets');  
 
-          //Connect to twitter stream passing in filter for entire world.
+          //fetch tweets
             oauth.get(
             'https://api.twitter.com/1.1/search/tweets.json?q=championsleague&result_type=popular&count=20', //+req.query.query,
               '2882833407-SMCE0MTVNzZ3yQSH6mJ3qxn86b03CAwrWNw09hS', // access token
@@ -72,16 +72,15 @@
             function (e, data)
             {
               if (e) 
-                console.error(e);            
-              socket.broadcast.emit("twitter-stream", JSON.parse(data));
-              //Send out to web sockets channel.
+                console.error(e);       
+              // send date     
+              socket.broadcast.emit("twitter-stream", JSON.parse(data));              
               socket.emit('twitter-stream', JSON.parse(data));
               console.log((new Date()).toUTCString() + ' s : tweets sent!');  
             });      
       })
 
-    // Emits signal to the client telling them that the
-    // they are connected and can start receiving Tweets
+      // signal that client is connected
       console.log((new Date()).toUTCString() + ' s : connected!');
       socket.emit("connected");
     });
